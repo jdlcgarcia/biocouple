@@ -4,5 +4,10 @@
     <string name="app_name">J2</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_pics">PicsActivity</string>
+    <string name="title_activity_story">StoryActivity</string>
+    <string name="title_activity_map">MapActivity</string>
+    <string name="title_activity_music">MusicActivity</string>
+    <string name="title_activity_likes">LikesActivity</string>
 
 </resources>
