@@ -1,10 +1,10 @@
 package com.bobotosoft.j2;
 
 import android.os.Bundle;
-import android.app.Activity;
+import android.app.ListActivity;
 import android.view.Menu;
 
-public class MusicActivity extends Activity {
+public class MusicActivity extends ListActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

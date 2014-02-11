@@ -11,7 +11,7 @@
     >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/tvFotos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nuestras fotos"
@@ -20,7 +20,7 @@
         />
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/ivFotos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/corazones" 
@@ -30,7 +30,7 @@
         />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tvCanciones"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nuestras canciones"
@@ -38,7 +38,7 @@
         android:onClick="changeIntent"
         />
 	<ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/ivCanciones"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/corazones" 
@@ -47,7 +47,7 @@
         android:layout_marginBottom="5dp"
         />
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tvHistoria"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nuestra historia"
@@ -55,7 +55,7 @@
         android:onClick="changeIntent"
         />
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/ivHistoria"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/corazones" 
@@ -64,14 +64,14 @@
         android:layout_marginBottom="5dp"
         />
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/tvLugares"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nuestros lugares"
         android:textAppearance="?android:attr/textAppearanceLarge" 
         android:onClick="changeIntent"/>
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/ivLugares"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/corazones" 
@@ -80,14 +80,14 @@
         android:layout_marginBottom="5dp"
         />
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/tvGustos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nuestros gustos"
         android:textAppearance="?android:attr/textAppearanceLarge" 
         android:onClick="changeIntent"/>
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/ivGustos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/corazones" 
