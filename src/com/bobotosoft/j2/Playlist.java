@@ -1,11 +1,17 @@
 package com.bobotosoft.j2;
 
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Random;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnCompletionListener;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
@@ -13,7 +19,7 @@ import android.widget.Toast;
 public class Playlist extends Service {
 	private static final String TAG = "MyService";
 	private static final int[] songs = {
-		/*R.raw.annie_lennox__love_song_for_a_vampire,
+		R.raw.annie_lennox__love_song_for_a_vampire/*,
 		R.raw.beatles_good_day_sunshine,
 		R.raw.blur__coffee_and_tv,
 		R.raw.cafe_tacvba__eres,
@@ -58,35 +64,91 @@ public class Playlist extends Service {
 		R.raw.travis__flowers_in_the_window,
 		R.raw.van_morrison__brown_eyed_girl,
 		R.raw.visita__enjambre,
-		R.raw.weezer__island_in_the_sun,*/
-		R.raw.zoe__labios_rotos};
+		R.raw.weezer__island_in_the_sun,
+		R.raw.zoe__labios_rotos*/};
 	MediaPlayer player;
 	
-	@Override
-	public IBinder onBind(Intent intent) {
-		return null;
-	}
-	
-	@Override
-	public void onCreate() {
-		super.onCreate();
-		Log.d(TAG, "Playing!");
-		Random dice =  new Random(System.currentTimeMillis());
-		player = MediaPlayer.create(this, songs[dice.nextInt()]);
-		player.setLooping(false); // Set looping
-	}
+	public IBinder onBind(Intent arg0) {
 
-	@Override
-	public void onDestroy() {
-		Toast.makeText(this, "My Service Stopped", Toast.LENGTH_LONG).show();
-		Log.d(TAG, "onDestroy");
-		player.stop();
-	}
+        return null;
+    }
 	
 	@Override
-	public void onStart(Intent intent, int startid) {
-		Toast.makeText(this, "My Service Started", Toast.LENGTH_LONG).show();
-		Log.d(TAG, "onStart");
-		player.start();
-	}
+    public void onCreate() {
+        super.onCreate();
+        Random r = new Random(System.currentTimeMillis());
+        player = MediaPlayer.create(this, songs[r.nextInt(songs.length-1)]);
+        //player.setLooping(true); // Set looping
+        player.setVolume(100,100);
+        player.setOnCompletionListener(new OnCompletionListener() {
+
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+            	playnext(mp);
+            	
+            }
+
+            });
+    }
+	
+	public int onStartCommand(Intent intent, int flags, int startId) {
+        player.start();
+        return 1;
+    }
+	public void onStart(Intent intent, int startId) {
+        // TO DO
+    }
+    public IBinder onUnBind(Intent arg0) {
+        // TO DO Auto-generated method
+        return null;
+    }
+
+    public void onStop() {
+    	Log.d(TAG,"started stopping");
+    	player.stop();
+        player.release();
+        Log.d(TAG,"stopped stopping");
+    }
+    public void onPause() {
+
+    }
+    @Override
+    public void onDestroy() {
+    	Log.d(TAG,"started destroying");
+        player.stop();
+        player.release();
+
+        Log.d(TAG,"stopped destroying");
+    }
+
+    @Override
+    public void onLowMemory() {
+
+    }
+    
+    private void playnext(MediaPlayer mp)
+    {
+    	Random r = new Random(System.currentTimeMillis());
+    	AssetFileDescriptor afd = getApplicationContext().getResources().openRawResourceFd(songs[r.nextInt(songs.length-1)]);
+    	try
+        {   
+    		mp.reset();
+    		mp.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getDeclaredLength());
+    		mp.prepare();
+    		mp.start();
+            afd.close();
+        }
+        catch (IllegalArgumentException e)
+        {
+            Log.e(TAG, "Unable to play audio queue do to exception: " + e.getMessage(), e);
+        }
+        catch (IllegalStateException e)
+        {
+            Log.e(TAG, "Unable to play audio queue do to exception: " + e.getMessage(), e);
+        }
+        catch (IOException e)
+        {
+            Log.e(TAG, "Unable to play audio queue do to exception: " + e.getMessage(), e);
+        }
+    }
 }

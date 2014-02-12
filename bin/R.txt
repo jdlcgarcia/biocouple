@@ -61,14 +61,15 @@ int drawable ic_plusone_medium_off_client 0x7f02001c
 int drawable ic_plusone_small_off_client 0x7f02001d
 int drawable ic_plusone_standard_off_client 0x7f02001e
 int drawable ic_plusone_tall_off_client 0x7f02001f
-int id action_settings 0x7f060011
-int id gridview 0x7f060010
+int id action_settings 0x7f060012
+int id gridview 0x7f060011
 int id hybrid 0x7f060004
 int id ivCanciones 0x7f060008
 int id ivFotos 0x7f060006
 int id ivGustos 0x7f06000e
 int id ivHistoria 0x7f06000a
 int id ivLugares 0x7f06000c
+int id lvCanciones 0x7f060010
 int id map 0x7f06000f
 int id none 0x7f060000
 int id normal 0x7f060001
@@ -92,7 +93,7 @@ int menu map 0x7f0b0002
 int menu music 0x7f0b0003
 int menu pics 0x7f0b0004
 int menu story 0x7f0b0005
-int raw zoe__labios_rotos 0x7f040000
+int raw annie_lennox__love_song_for_a_vampire 0x7f040000
 int string action_settings 0x7f07001b
 int string app_name 0x7f07001a
 int string auth_client_needs_enabling_title 0x7f070015

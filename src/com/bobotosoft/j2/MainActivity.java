@@ -3,7 +3,6 @@ package com.bobotosoft.j2;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 
@@ -13,6 +12,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
 		Intent music = new Intent(this, Playlist.class);
 		startService(music);
 	}
@@ -29,7 +29,6 @@ public class MainActivity extends Activity {
 			startActivity(new Intent(this.getApplicationContext(),
 					PicsActivity.class));
 		else if (V.getId() == R.id.ivCanciones || V.getId() == R.id.tvCanciones) // Música
-																					// TODO
 			startActivity(new Intent(this.getApplicationContext(),
 					MusicActivity.class));
 		else if (V.getId() == R.id.ivHistoria || V.getId() == R.id.tvHistoria) // Historia
@@ -42,5 +41,11 @@ public class MainActivity extends Activity {
 																			// TODO
 			startActivity(new Intent(this.getApplicationContext(),
 					LikesActivity.class));
+	}
+	
+	@Override
+	public void onStop(){
+		super.onStop();
+		stopService(new Intent(this, Playlist.class));
 	}
 }

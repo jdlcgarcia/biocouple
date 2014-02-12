@@ -224,14 +224,15 @@ containing a value of this type.
         public static final int ic_plusone_tall_off_client=0x7f02001f;
     }
     public static final class id {
-        public static final int action_settings=0x7f060011;
-        public static final int gridview=0x7f060010;
+        public static final int action_settings=0x7f060012;
+        public static final int gridview=0x7f060011;
         public static final int hybrid=0x7f060004;
         public static final int ivCanciones=0x7f060008;
         public static final int ivFotos=0x7f060006;
         public static final int ivGustos=0x7f06000e;
         public static final int ivHistoria=0x7f06000a;
         public static final int ivLugares=0x7f06000c;
+        public static final int lvCanciones=0x7f060010;
         public static final int map=0x7f06000f;
         public static final int none=0x7f060000;
         public static final int normal=0x7f060001;
@@ -263,7 +264,7 @@ containing a value of this type.
         public static final int story=0x7f0b0005;
     }
     public static final class raw {
-        public static final int zoe__labios_rotos=0x7f040000;
+        public static final int annie_lennox__love_song_for_a_vampire=0x7f040000;
     }
     public static final class string {
         public static final int action_settings=0x7f07001b;
