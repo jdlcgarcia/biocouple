@@ -9,5 +9,6 @@
     <string name="title_activity_map">MapActivity</string>
     <string name="title_activity_music">MusicActivity</string>
     <string name="title_activity_likes">LikesActivity</string>
+    <string name="title_activity_fullpic">FullPic</string>
 
 </resources>

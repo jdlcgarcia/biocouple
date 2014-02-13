@@ -14,12 +14,13 @@ import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.AbsSeekBar;
 import android.widget.Toast;
 
 public class Playlist extends Service {
-	private static final String TAG = "MyService";
+	private static final String TAG = "Playlist";
 	private static final int[] songs = {
-		R.raw.annie_lennox__love_song_for_a_vampire/*,
+		/*R.raw.annie_lennox__love_song_for_a_vampire,
 		R.raw.beatles_good_day_sunshine,
 		R.raw.blur__coffee_and_tv,
 		R.raw.cafe_tacvba__eres,
@@ -67,7 +68,7 @@ public class Playlist extends Service {
 		R.raw.weezer__island_in_the_sun,
 		R.raw.zoe__labios_rotos*/};
 	MediaPlayer player;
-	
+	int currentsong; 
 	public IBinder onBind(Intent arg0) {
 
         return null;
@@ -76,12 +77,22 @@ public class Playlist extends Service {
 	@Override
     public void onCreate() {
         super.onCreate();
-        Random r = new Random(System.currentTimeMillis());
-        player = MediaPlayer.create(this, songs[r.nextInt(songs.length-1)]);
+        Log.d(TAG,"CREATE");
+        
+        player = new MediaPlayer();
+        
+    }
+	
+	public int onStartCommand(Intent intent, int flags, int startId) {
+        //player.start();
+		Log.d(TAG,"STARTCOMMAND");
+        this.currentsong = Math.abs(intent.getExtras().getInt("song"))%songs.length;
+        player = MediaPlayer.create(this, songs[this.currentsong]);
+        
         //player.setLooping(true); // Set looping
         player.setVolume(100,100);
         player.setOnCompletionListener(new OnCompletionListener() {
-
+        
             @Override
             public void onCompletion(MediaPlayer mp) {
             	playnext(mp);
@@ -89,13 +100,13 @@ public class Playlist extends Service {
             }
 
             });
-    }
-	
-	public int onStartCommand(Intent intent, int flags, int startId) {
+        
         player.start();
         return 1;
     }
 	public void onStart(Intent intent, int startId) {
+		Log.d(TAG,"START");
+		player.start();
         // TO DO
     }
     public IBinder onUnBind(Intent arg0) {
@@ -104,22 +115,43 @@ public class Playlist extends Service {
     }
 
     public void onStop() {
-    	Log.d(TAG,"started stopping");
-    	player.stop();
-        player.release();
-        Log.d(TAG,"stopped stopping");
+    	Log.d(TAG,"stoppin'");
+    	if (!(player == null)) {
+            if (player.isPlaying()) {
+                player.stop();
+                player.release();
+                player = null;
+            }
+        }
+        
     }
     public void onPause() {
 
     }
     @Override
     public void onDestroy() {
-    	Log.d(TAG,"started destroying");
-        player.stop();
-        player.release();
+    	
+    	super.onDestroy();
 
-        Log.d(TAG,"stopped destroying");
+        if (!(player == null)) {
+            if (player.isPlaying()) {
+                player.stop();
+                player.release();
+                player = null;
+            }
+        }
     }
+    
+    protected void onResume() {
+
+        if (!(player == null)) {
+            if (player.isPlaying()) {
+            	player.stop();
+            	player.release();
+            	player = null;
+            }
+        }
+    };
 
     @Override
     public void onLowMemory() {

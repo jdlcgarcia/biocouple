@@ -36,23 +36,33 @@
         </activity>
         <activity
             android:name="com.bobotosoft.j2.PicsActivity"
-            android:label="@string/title_activity_pics" >
+            android:label="@string/title_activity_pics" 
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen">
         </activity>
         <activity
             android:name="com.bobotosoft.j2.StoryActivity"
-            android:label="@string/title_activity_story" >
+            android:label="@string/title_activity_story" 
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen">
         </activity>
         <activity
             android:name="com.bobotosoft.j2.MapActivity"
-            android:label="@string/title_activity_map" >
+            android:label="@string/title_activity_map" 
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen">
         </activity>
         <activity
             android:name="com.bobotosoft.j2.MusicActivity"
-            android:label="@string/title_activity_music" >
+            android:label="@string/title_activity_music" 
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen">
         </activity>
         <activity
             android:name="com.bobotosoft.j2.LikesActivity"
-            android:label="@string/title_activity_likes" >
+            android:label="@string/title_activity_likes" 
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen">
+        </activity>
+        <activity
+            android:name="com.bobotosoft.j2.Fullpic"
+            android:label="@string/title_activity_fullpic" 
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen">
         </activity>
     </application>
 
@@ -62,7 +72,7 @@
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <!--
      The following two permissions are not required to use
-     Google Maps Android API v2, but are recommended.
+     Google Maps Android API v2, but are recommended.
     -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />

@@ -1,20 +1,31 @@
 package com.bobotosoft.j2;
 
+import java.util.Random;
+
 import android.os.Bundle;
+import android.os.Handler;
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
+	private static final String TAG = "MainActivity";
+	Intent bgmusic;
+	private boolean _doubleBackToExitPressedOnce = false;
+	Random r = new Random(System.currentTimeMillis());
+	int song;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		Intent music = new Intent(this, Playlist.class);
-		startService(music);
+		//processStartService("bgmusic");
+		
 	}
 
 	@Override
@@ -45,7 +56,46 @@ public class MainActivity extends Activity {
 	
 	@Override
 	public void onStop(){
+		
 		super.onStop();
-		stopService(new Intent(this, Playlist.class));
 	}
+	
+	@Override
+	public void onBackPressed() {
+
+	    Log.i(TAG, "onBackPressed--");
+	    if (_doubleBackToExitPressedOnce) {
+	        super.onBackPressed();
+	        return;
+	    }
+	    this._doubleBackToExitPressedOnce = true;
+	    Toast.makeText(this, "Pulsar de nuevo para salir", Toast.LENGTH_SHORT).show();
+	    new Handler().postDelayed(new Runnable() {
+	        @Override
+	        public void run() {
+	        	processStopService("bgmusic");
+	            _doubleBackToExitPressedOnce = false;
+	        }
+	    }, 2000);
+	}
+	private void processStartService(final String tag) {
+	    Intent intent = new Intent(getApplicationContext(), Playlist.class);
+	    intent.addCategory(tag);
+	    //song = r.nextInt();
+	    intent.putExtra("song", r.nextInt());
+	    startService(intent);
+	}
+	private void processStopService(final String tag) {
+	    Intent intent = new Intent(getApplicationContext(), Playlist.class);
+	    intent.addCategory(tag);
+	    stopService(intent);
+	}
+	public int getSong(){
+	return this.song;
+}
+	
+	public void setSong(int s){
+		this.song = s;
+	}
+	
 }

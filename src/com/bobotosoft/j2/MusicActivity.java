@@ -24,7 +24,7 @@ import android.widget.Toast;
 public class MusicActivity extends Activity  {
 	MediaPlayer player;
 	private static final int[] songs = {
-		R.raw.annie_lennox__love_song_for_a_vampire/*,
+		/*R.raw.annie_lennox__love_song_for_a_vampire,
 		R.raw.beatles_good_day_sunshine,
 		R.raw.blur__coffee_and_tv,
 		R.raw.cafe_tacvba__eres,
@@ -79,7 +79,7 @@ public class MusicActivity extends Activity  {
 		setContentView(R.layout.activity_music);
 		playlist = new ArrayList<String>();
 		playlist.add("annie lennox - love song for a vampire");
-		/*playlist.add("beatles - good day sunshine");
+		playlist.add("beatles - good day sunshine");
 		playlist.add("blur - coffee and tv");
 		playlist.add("cafe tacvba - eres");
 		playlist.add("carla morrison - eres tu");
@@ -124,21 +124,22 @@ public class MusicActivity extends Activity  {
 		playlist.add("van morrison - brown eyed girl");
 		playlist.add("visita - enjambre");
 		playlist.add("weezer - island in the sun");
-		playlist.add("zoe - labios rotos");*/
+		playlist.add("zoe - labios rotos");
 
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, playlist);
 		ListView canciones = (ListView) findViewById(R.id.lvCanciones);
 		canciones.setAdapter(adapter);
-		player.create(getApplicationContext(), R.raw.annie_lennox__love_song_for_a_vampire);
+		
 		
 		canciones.setOnItemClickListener(new OnItemClickListener() {
 			
 			@Override
 			   public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 			     long arg3) {
-				playnext(player,arg2);
-		        
+				processStopService("bgmusic");
+				processStartService("bgmusic",arg2);
+				
 			   }  });
 	}
 
@@ -150,35 +151,23 @@ public class MusicActivity extends Activity  {
 	}
 	
 	
-	private void playnext(MediaPlayer mp, int i)
-    {
-    	
-    	AssetFileDescriptor afd = getApplicationContext().getResources().openRawResourceFd(songs[i]);
-    	try
-        {   
-    		if(mp != null)
-    			mp.reset();
-    		mp.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getDeclaredLength());
-    		mp.prepare();
-    		mp.start();
-            afd.close();
-        }
-        catch (IllegalArgumentException e)
-        {
-            Log.e(TAG, "Unable to play audio queue do to exception: " + e.getMessage(), e);
-        }
-        catch (IllegalStateException e)
-        {
-            Log.e(TAG, "Unable to play audio queue do to exception: " + e.getMessage(), e);
-        }
-        catch (IOException e)
-        {
-            Log.e(TAG, "Unable to play audio queue do to exception: " + e.getMessage(), e);
-        }
-    	catch (Exception e)
-    	{
-    		Log.e(TAG, "Other exception: " + e.getMessage(), e);
-        }
-    }
-
+	
+	private void processStopService(final String tag) {
+	    Intent intent = new Intent(getApplicationContext(), Playlist.class);
+	    intent.addCategory(tag);
+	    stopService(intent);
+	}
+	private void processStartService(final String tag, int i) {
+	    Intent intent = new Intent(getApplicationContext(), Playlist.class);
+	    intent.addCategory(tag);
+	    intent.putExtra("song", i);
+	    startService(intent);
+	}
+	
+	@Override
+	public void onStop(){
+		super.onStop();
+		
+		
+	}
 }
